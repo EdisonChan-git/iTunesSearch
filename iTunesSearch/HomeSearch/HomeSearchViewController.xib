@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeSearchViewController" customModule="iTunesSearch" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="edh-OI-P6D" id="SVN-tu-JBt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="edh-OI-P6D">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iTunes Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGr-dZ-2ko">
+                    <rect key="frame" x="16" y="59" width="166.66666666666666" height="22"/>
+                    <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="22"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Fqg-L0-BAR">
+                    <rect key="frame" x="0.0" y="97" width="393" height="56"/>
+                    <subviews>
+                        <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Songs, Artists, Albums....." translatesAutoresizingMaskIntoConstraints="NO" id="N0O-kb-8Yl">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="250" id="l1a-xz-DbC"/>
+                    </constraints>
+                </stackView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zJV-y9-3vT">
+                    <rect key="frame" x="0.0" y="153" width="393" height="665"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="tUk-yR-QkY"/>
+                        <outlet property="delegate" destination="-1" id="f8O-z9-xNc"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="qZJ-As-8QE"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="qZJ-As-8QE" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rGr-dZ-2ko" secondAttribute="trailing" id="3VY-u9-Rg4"/>
+                <constraint firstItem="Fqg-L0-BAR" firstAttribute="trailing" secondItem="qZJ-As-8QE" secondAttribute="trailing" id="6BR-Ie-lgj"/>
+                <constraint firstItem="qZJ-As-8QE" firstAttribute="trailing" secondItem="zJV-y9-3vT" secondAttribute="trailing" id="9Ec-D4-R8D"/>
+                <constraint firstItem="Fqg-L0-BAR" firstAttribute="leading" secondItem="qZJ-As-8QE" secondAttribute="leading" id="GCs-g0-qkV"/>
+                <constraint firstItem="rGr-dZ-2ko" firstAttribute="leading" secondItem="qZJ-As-8QE" secondAttribute="leading" constant="16" id="GxN-Ee-Tr1"/>
+                <constraint firstItem="zJV-y9-3vT" firstAttribute="leading" secondItem="qZJ-As-8QE" secondAttribute="leading" id="KxX-jc-5C6"/>
+                <constraint firstItem="Fqg-L0-BAR" firstAttribute="top" secondItem="rGr-dZ-2ko" secondAttribute="bottom" constant="16" id="RO4-Rx-6yx"/>
+                <constraint firstItem="zJV-y9-3vT" firstAttribute="top" secondItem="Fqg-L0-BAR" secondAttribute="bottom" id="Wlu-ds-ymL"/>
+                <constraint firstItem="qZJ-As-8QE" firstAttribute="bottom" secondItem="zJV-y9-3vT" secondAttribute="bottom" id="abB-Sv-hoK"/>
+                <constraint firstItem="rGr-dZ-2ko" firstAttribute="top" secondItem="qZJ-As-8QE" secondAttribute="top" id="bgz-Nw-OuS"/>
+            </constraints>
+            <point key="canvasLocation" x="33" y="-11"/>
+        </view>
+    </objects>
+</document>

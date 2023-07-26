@@ -1,0 +1,18 @@
+# Pods
+Pods/
+*.lock
+*.xcworkspace
+
+# User settings
+xcuserdata/
+
+# Build files
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.xcarchive
+*.xcconfig
+*.xcresult
+*.xcworkspace/xcuserdata/
+*.xccovreport

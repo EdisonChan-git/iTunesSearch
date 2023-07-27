@@ -18,7 +18,7 @@ class HomeSearchViewController: UIViewController {
     let viewModel = HomeSearchViewModel()
     var timer : Timer?
     var searchText : String = ""
-    let tapArray = ["tap_song".localize(),"tap_album".localize(),"tap_artist".localize()]
+    var tapArray = ["Song".localize(),"Album".localize(),"Artist".localize()]
     var currentSearchType = 0 // 0 = Song, 1 = Alubm, 2 = Artist
     
     
@@ -28,13 +28,21 @@ class HomeSearchViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.searchResultTableView.register(UINib(nibName: "SearchResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchResultTableViewCell")
         self.tapCollectionView.register(UINib.init(nibName: "TapView", bundle: nil), forCellWithReuseIdentifier: "TapView")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: Notification.Name("AppLanguageDidChange"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setupLocalizationString()
+    }
+    
+    func setupLocalizationString() {
         self.headerLabel.text = "iTunes Search".localize()
-        self.searchBar.placeholder = "Search Bar Placeholder".localize()
+        self.searchBar.placeholder = "Search Songs, Artists, Albums.....".localize()
+        tapArray = ["Song".localize(),"Album".localize(),"Artist".localize()]
+        self.tapCollectionView.reloadData()
     }
 
     @objc func search() {
@@ -45,8 +53,40 @@ class HomeSearchViewController: UIViewController {
         })
     }
     
+    @objc func languageDidChange() {
+        // Reload the content of your view controller
+        setupLocalizationString()
+    }
+    
     @IBAction func didClickFilter(_ sender: Any) {
         
+    }
+    @IBAction func didClickChangeLang(_ sender: Any) {
+        let alert = UIAlertController(title: nil, message: "Language".localize(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "English" , style: .default, handler: { _ in
+            // Update app's language with the language code
+            UserDefaults.standard.set("en", forKey: "AppLanguage")
+            UserDefaults.standard.synchronize()
+            
+            NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "繁體中文（香港）" , style: .default, handler: { _ in
+            // Update app's language with the language code
+            UserDefaults.standard.set("zh-HK", forKey: "AppLanguage")
+            UserDefaults.standard.synchronize()
+            
+            NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "简体中文（中国）" , style: .default, handler: { _ in
+            // Update app's language with the language code
+            UserDefaults.standard.set("zh-Hans", forKey: "AppLanguage")
+            UserDefaults.standard.synchronize()
+            
+            NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+        }))
+
+           // Show change language alert to user
+       self.present(alert, animated: true, completion: nil)
     }
 }
 

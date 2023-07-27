@@ -7,7 +7,9 @@
 */
 
 "iTunes Search" = "iTunes 搜寻";
-"Search Bar Placeholder" = "搜寻歌曲、演出者、专辑......";
-"tap_song" = "歌曲";
-"tap_album" = "专辑";
-"tap_artist" = "演出者";
+"Search Songs, Artists, Albums....." = "搜寻歌曲、演出者、专辑......";
+"Song" = "歌曲";
+"Album" = "专辑";
+"Artist" = "演出者";
+
+"Language" = "语言";

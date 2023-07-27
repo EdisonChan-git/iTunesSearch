@@ -7,7 +7,9 @@
 */
 
 "iTunes Search" = "iTunes Search";
-"Search Bar Placeholder" = "Search Songs, Artists, Albums.....";
-"tap_song" = "Song";
-"tap_album" = "Album";
-"tap_artist" = "Artist";
+"Search Songs, Artists, Albums....." = "Search Songs, Artists, Albums.....";
+"Song" = "Song";
+"Album" = "Album";
+"Artist" = "Artist";
+
+"Language" = "Language";

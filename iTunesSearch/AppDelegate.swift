@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         homeSearchViewController = HomeSearchViewController(nibName: "HomeSearchViewController", bundle: nil)
         navController = UINavigationController(rootViewController: homeSearchViewController!)
+        navController?.navigationBar.isHidden = true
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
 

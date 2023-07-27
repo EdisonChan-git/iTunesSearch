@@ -24,6 +24,32 @@ extension String {
 
         return NSLocalizedString(self, bundle: bundle, comment: "")
     }
+    
+    func publishDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        if let date = formatter.date(from: self) {
+            let publishDateFormatter = DateFormatter()
+            publishDateFormatter.dateFormat = "yyyy-MM-dd"
+            publishDateFormatter.locale = Locale.current
+            return publishDateFormatter.string(from: date)
+        }
+        
+        return ""
+    }
+    
+    func publishYear() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        if let date = formatter.date(from: self) {
+            let publishDateFormatter = DateFormatter()
+            publishDateFormatter.dateFormat = "yyyy"
+            publishDateFormatter.locale = Locale.current
+            return publishDateFormatter.string(from: date)
+        }
+        
+        return ""
+    }
 }
 
 class Utils {
@@ -54,4 +80,63 @@ class Utils {
         
         NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
     }
+    
+    func updateFavouriteList(song: MusicResult) {
+        let list = getFavouriteListFromUserDefault()
+        
+        if(!checkIfSongIsExistInFavouriteList(song: song)){
+            print("add \(song.trackName!)")
+            let newList = NSMutableArray(array: list).adding(song) as! [MusicResult]
+            
+            let encoder = PropertyListEncoder()
+            if let encodedList = try? encoder.encode(newList) {
+                // Store the encoded data in user defaults
+                UserDefaults.standard.set(encodedList, forKey: "myList")
+                UserDefaults.standard.synchronize()
+            }
+        }else{
+            print("remove \(song.trackName!)")
+            let newList = NSMutableArray()
+            for item in list {
+                if let musicItem = item as? MusicResult {
+                    if(musicItem.trackId != song.trackId){
+                        newList.add(musicItem)
+                    }
+                }
+            }
+            
+            let encoder = PropertyListEncoder()
+            if let encodedList = try? encoder.encode(newList as! [MusicResult]) {
+                // Store the encoded data in user defaults
+                UserDefaults.standard.set(encodedList, forKey: "myList")
+                UserDefaults.standard.synchronize()
+            }
+        }
+    }
+    
+    func checkIfSongIsExistInFavouriteList(song: MusicResult) -> Bool{
+        var IsExisted = false
+        let list = getFavouriteListFromUserDefault()
+        
+        for item in list {
+            if let musicItem = item as? MusicResult {
+                if(musicItem.trackId == song.trackId){
+                    IsExisted = true
+                }
+            }
+        }
+        
+        return IsExisted
+    }
+    
+    func getFavouriteListFromUserDefault() -> NSMutableArray {
+        let decoder = PropertyListDecoder()
+        if let savedList = UserDefaults.standard.data(forKey: "myList"),
+           let decodedList = try? decoder.decode([MusicResult].self, from: savedList) {
+            return NSMutableArray(array: decodedList)
+        } else {
+            return NSMutableArray()
+        }
+    }
+    
 }

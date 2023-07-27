@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeSearchViewController" customModule="iTunesSearch" customModuleProvider="target">
             <connections>
+                <outlet property="favouriteButton" destination="B5y-r8-7Z8" id="Yh0-e8-fw8"/>
                 <outlet property="filterButton" destination="O7L-rm-J1T" id="ekE-FK-BIZ"/>
                 <outlet property="headerLabel" destination="IEm-dk-gqE" id="JS8-nD-1mQ"/>
                 <outlet property="langButton" destination="uih-3O-gsg" id="OcN-ry-BWR"/>
@@ -27,13 +28,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iTunes Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IEm-dk-gqE">
-                    <rect key="frame" x="16" y="59" width="166.66666666666666" height="22"/>
+                    <rect key="frame" x="16" y="75" width="166.66666666666666" height="22"/>
                     <fontDescription key="fontDescription" name="HiraginoSans-W6" family="Hiragino Sans" pointSize="22"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uih-3O-gsg" userLabel="Lang Button">
-                    <rect key="frame" x="345" y="54" width="32" height="32"/>
+                    <rect key="frame" x="345" y="70" width="32" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="uih-3O-gsg" secondAttribute="height" multiplier="1:1" id="655-0p-Aac"/>
                         <constraint firstAttribute="width" constant="32" id="qFx-GL-37m"/>
@@ -44,8 +45,20 @@
                         <action selector="didClickChangeLang:" destination="-1" eventType="touchUpInside" id="2rN-di-Ggx"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5y-r8-7Z8" userLabel="Favourite Button">
+                    <rect key="frame" x="297" y="70" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="ge3-kD-Pkw"/>
+                        <constraint firstAttribute="width" secondItem="B5y-r8-7Z8" secondAttribute="height" multiplier="1:1" id="jA1-w9-hhH"/>
+                    </constraints>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2" maxY="0.0"/>
+                    <state key="normal" image="icon_favorite"/>
+                    <connections>
+                        <action selector="didClickFavourite:" destination="-1" eventType="touchUpInside" id="mfd-6L-8Ia"/>
+                    </connections>
+                </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JIC-YZ-E86">
-                    <rect key="frame" x="0.0" y="97" width="393" height="56"/>
+                    <rect key="frame" x="0.0" y="113" width="393" height="56"/>
                     <subviews>
                         <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Songs, Artists, Albums....." translatesAutoresizingMaskIntoConstraints="NO" id="uzN-2i-Kzz">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
@@ -106,7 +119,7 @@
                     </constraints>
                 </stackView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tQy-t2-YEc">
-                    <rect key="frame" x="0.0" y="153" width="393" height="665"/>
+                    <rect key="frame" x="0.0" y="169" width="393" height="649"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
@@ -121,11 +134,14 @@
                 <constraint firstItem="uih-3O-gsg" firstAttribute="centerY" secondItem="IEm-dk-gqE" secondAttribute="centerY" id="0KT-ML-R0T"/>
                 <constraint firstAttribute="trailing" secondItem="uih-3O-gsg" secondAttribute="trailing" constant="16" id="4FY-Y5-QvZ"/>
                 <constraint firstItem="WD0-qd-uUe" firstAttribute="trailing" secondItem="tQy-t2-YEc" secondAttribute="trailing" id="CBs-sU-IXS"/>
+                <constraint firstItem="B5y-r8-7Z8" firstAttribute="centerY" secondItem="uih-3O-gsg" secondAttribute="centerY" id="CMK-Cv-Jfg"/>
+                <constraint firstItem="uih-3O-gsg" firstAttribute="leading" secondItem="B5y-r8-7Z8" secondAttribute="trailing" constant="16" id="CSV-91-iI3"/>
                 <constraint firstItem="tQy-t2-YEc" firstAttribute="leading" secondItem="WD0-qd-uUe" secondAttribute="leading" id="DkV-hC-FKi"/>
                 <constraint firstItem="IEm-dk-gqE" firstAttribute="leading" secondItem="WD0-qd-uUe" secondAttribute="leading" constant="16" id="Fk9-Sr-YtU"/>
                 <constraint firstItem="JIC-YZ-E86" firstAttribute="trailing" secondItem="WD0-qd-uUe" secondAttribute="trailing" id="Rwu-6I-Vzk"/>
                 <constraint firstItem="JIC-YZ-E86" firstAttribute="leading" secondItem="WD0-qd-uUe" secondAttribute="leading" id="SQ5-QZ-J1M"/>
-                <constraint firstItem="IEm-dk-gqE" firstAttribute="top" secondItem="WD0-qd-uUe" secondAttribute="top" id="V1a-5T-hbQ"/>
+                <constraint firstItem="IEm-dk-gqE" firstAttribute="top" secondItem="WD0-qd-uUe" secondAttribute="top" constant="16" id="V1a-5T-hbQ"/>
+                <constraint firstItem="B5y-r8-7Z8" firstAttribute="width" secondItem="B5y-r8-7Z8" secondAttribute="height" multiplier="1:1" id="Ytw-Zb-JM9"/>
                 <constraint firstItem="JIC-YZ-E86" firstAttribute="top" secondItem="IEm-dk-gqE" secondAttribute="bottom" constant="16" id="dcx-wE-ghB"/>
                 <constraint firstItem="WD0-qd-uUe" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IEm-dk-gqE" secondAttribute="trailing" id="i5R-PU-84X"/>
                 <constraint firstItem="tQy-t2-YEc" firstAttribute="top" secondItem="JIC-YZ-E86" secondAttribute="bottom" id="rDo-bn-7Yd"/>
@@ -135,6 +151,7 @@
         </view>
     </objects>
     <resources>
+        <image name="icon_favorite" width="512" height="512"/>
         <image name="icon_filter" width="512" height="512"/>
         <image name="icon_language" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">

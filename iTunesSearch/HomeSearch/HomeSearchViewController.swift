@@ -11,6 +11,7 @@ class HomeSearchViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var langButton: UIButton!
     @IBOutlet weak var filterButton: UIButton!
+    @IBOutlet weak var favouriteButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
     @IBOutlet weak var tableViewTopStackView: UIStackView!
@@ -66,6 +67,11 @@ class HomeSearchViewController: UIViewController {
         //To Do
         //1. pass filter value from search result
         //2. init new filter list
+    }
+    @IBAction func didClickFavourite(_ sender: Any) {
+        let vc = FavouriteListViewController()
+
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func didClickChangeLang(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "Language".localize(), preferredStyle: .alert)
@@ -132,7 +138,10 @@ extension HomeSearchViewController: UITableViewDelegate {
         }else{
             let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
             print("Want to open \(MusicResult.trackName!) By \(MusicResult.artistName!)")
+            let vc = SongDetailViewController()
+            vc.data = MusicResult
             
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

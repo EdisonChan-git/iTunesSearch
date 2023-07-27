@@ -7,7 +7,25 @@
 		<key>iTunesSearch.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>6</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>AECE6FC32A71212C00D85DDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AECE6FD92A71212F00D85DDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AECE6FE32A71212F00D85DDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

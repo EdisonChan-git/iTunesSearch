@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  iTunesSearch
+
+  Created by EDISON CHAN on 27/7/2023.
+  
+*/
+
+"iTunes Search" = "iTunes 搜尋";
+"Search Bar Placeholder" = "搜尋歌曲、演出者、專輯......";
+"tap_song" = "歌曲";
+"tap_album" = "專輯";
+"tap_artist" = "演出者";

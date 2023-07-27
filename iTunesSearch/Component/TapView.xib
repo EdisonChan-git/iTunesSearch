@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qVk-sP-ypN" customClass="TapView" customModule="iTunesSearch" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="137" height="48"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="137" height="48"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7r7-Nr-ISf">
+                        <rect key="frame" x="16" y="8" width="105" height="32"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R7V-0u-VMG">
+                        <rect key="frame" x="16" y="8" width="105" height="32"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="7r7-Nr-ISf" firstAttribute="leading" secondItem="qVk-sP-ypN" secondAttribute="leading" constant="16" id="4gk-Xt-5RI"/>
+                <constraint firstItem="7r7-Nr-ISf" firstAttribute="centerX" secondItem="qVk-sP-ypN" secondAttribute="centerX" id="BGs-7x-VIo"/>
+                <constraint firstItem="R7V-0u-VMG" firstAttribute="centerX" secondItem="qVk-sP-ypN" secondAttribute="centerX" id="F4s-wz-cbf"/>
+                <constraint firstAttribute="trailing" secondItem="R7V-0u-VMG" secondAttribute="trailing" constant="16" id="HST-Vm-AtB"/>
+                <constraint firstItem="7r7-Nr-ISf" firstAttribute="centerY" secondItem="qVk-sP-ypN" secondAttribute="centerY" id="Onz-Rr-EAX"/>
+                <constraint firstItem="R7V-0u-VMG" firstAttribute="top" secondItem="qVk-sP-ypN" secondAttribute="top" constant="8" id="Pyh-Md-6gq"/>
+                <constraint firstAttribute="bottom" secondItem="R7V-0u-VMG" secondAttribute="bottom" constant="8" id="aie-QE-JFK"/>
+                <constraint firstAttribute="bottom" secondItem="7r7-Nr-ISf" secondAttribute="bottom" constant="8" id="czy-xi-dCa"/>
+                <constraint firstItem="7r7-Nr-ISf" firstAttribute="top" secondItem="qVk-sP-ypN" secondAttribute="top" constant="8" id="eZj-Ik-Mxb"/>
+                <constraint firstItem="R7V-0u-VMG" firstAttribute="leading" secondItem="qVk-sP-ypN" secondAttribute="leading" constant="16" id="i9y-uL-d9x"/>
+                <constraint firstItem="R7V-0u-VMG" firstAttribute="centerY" secondItem="qVk-sP-ypN" secondAttribute="centerY" id="oSR-BT-Gko"/>
+                <constraint firstAttribute="trailing" secondItem="7r7-Nr-ISf" secondAttribute="trailing" constant="16" id="x9V-4u-C86"/>
+            </constraints>
+            <size key="customSize" width="84" height="56"/>
+            <connections>
+                <outlet property="tabBGView" destination="7r7-Nr-ISf" id="2jo-Tp-zdq"/>
+                <outlet property="tabLabel" destination="R7V-0u-VMG" id="t3f-Zk-UOl"/>
+            </connections>
+            <point key="canvasLocation" x="127.53623188405798" y="69.642857142857139"/>
+        </collectionViewCell>
+    </objects>
+</document>

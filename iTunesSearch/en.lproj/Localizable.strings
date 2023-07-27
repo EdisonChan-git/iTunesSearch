@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  iTunesSearch
+
+  Created by EDISON CHAN on 27/7/2023.
+  
+*/
+
+"iTunes Search" = "iTunes Search";
+"Search Bar Placeholder" = "Search Songs, Artists, Albums.....";
+"tap_song" = "Song";
+"tap_album" = "Album";
+"tap_artist" = "Artist";

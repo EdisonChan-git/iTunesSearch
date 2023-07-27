@@ -47,4 +47,11 @@ class Utils {
             showAlert(title: "Error", message: "Cannot open URL: \(urlString)")
         }
     }
+    
+    func updateLanguage(lang: String) {
+        UserDefaults.standard.set(lang, forKey: "AppLanguage")
+        UserDefaults.standard.synchronize()
+        
+        NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+    }
 }

@@ -26,10 +26,11 @@ class HomeSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        //Register Cell
         self.searchResultTableView.register(UINib(nibName: "SearchResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchResultTableViewCell")
         self.tapCollectionView.register(UINib.init(nibName: "TapView", bundle: nil), forCellWithReuseIdentifier: "TapView")
         
+        //Register Notification
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: Notification.Name("AppLanguageDidChange"), object: nil)
     }
     
@@ -49,8 +50,10 @@ class HomeSearchViewController: UIViewController {
     @objc func search() {
         viewModel.performSearch(searchText: self.searchText, completion: {
             self.searchResultTableView.reloadData()
-            self.tableViewTopStackView.isHidden = self.viewModel.searchText.count == 0
             self.tapCollectionView.reloadData()
+            
+            //The tableViewTopStackView component contains both the TapView and Filter Button elements, which are only displayed upon completion of a search operation
+            self.tableViewTopStackView.isHidden = self.viewModel.searchText.count == 0
         })
     }
     
@@ -60,34 +63,27 @@ class HomeSearchViewController: UIViewController {
     }
     
     @IBAction func didClickFilter(_ sender: Any) {
-        
+        //To Do
+        //1. pass filter value from search result
+        //2. init new filter list
     }
     @IBAction func didClickChangeLang(_ sender: Any) {
         let alert = UIAlertController(title: nil, message: "Language".localize(), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "English" , style: .default, handler: { _ in
             // Update app's language with the language code
-            UserDefaults.standard.set("en", forKey: "AppLanguage")
-            UserDefaults.standard.synchronize()
-            
-            NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+            Utils.shared.updateLanguage(lang: "en")
         }))
         alert.addAction(UIAlertAction(title: "繁體中文（香港）" , style: .default, handler: { _ in
             // Update app's language with the language code
-            UserDefaults.standard.set("zh-HK", forKey: "AppLanguage")
-            UserDefaults.standard.synchronize()
-            
-            NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+            Utils.shared.updateLanguage(lang: "zh-HK")
         }))
         alert.addAction(UIAlertAction(title: "简体中文（中国）" , style: .default, handler: { _ in
             // Update app's language with the language code
-            UserDefaults.standard.set("zh-Hans", forKey: "AppLanguage")
-            UserDefaults.standard.synchronize()
-            
-            NotificationCenter.default.post(name: Notification.Name("AppLanguageDidChange"), object: nil)
+            Utils.shared.updateLanguage(lang: "zh-Hans")
         }))
 
-           // Show change language alert to user
-       self.present(alert, animated: true, completion: nil)
+        // Show change language alert to user
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -147,9 +143,14 @@ extension HomeSearchViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //Update current search type (0 = Song, 1 = Alubm, 2 = Artist)
         self.currentSearchType = indexPath.row
         self.viewModel.currentSearchType = indexPath.row
+        
+        //Only show filter button when searching song
         self.filterButton.isHidden = self.currentSearchType != 0
+        
+        //Perform Search
         search()
     }
 }
@@ -194,6 +195,8 @@ extension HomeSearchViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //Timer is used to prevent too many API calls from being fired while typing.
+        
         self.searchText = searchText
         if(timer != nil){
             timer?.invalidate()

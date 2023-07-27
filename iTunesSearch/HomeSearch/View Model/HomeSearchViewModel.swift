@@ -24,6 +24,7 @@ class HomeSearchViewModel{
         count = 0
         noMoreResult = false
         
+        //reset filter value list
         filterList_country = []
         filterList_mediaType = []
     }
@@ -51,7 +52,7 @@ class HomeSearchViewModel{
                 self.noMoreResult = true
             }
             
-            //update value
+            //update paging value
             self.currentPage += 1
             self.count = self.searchResult.count
             
@@ -69,10 +70,9 @@ class HomeSearchViewModel{
                 self.noMoreResult = true
             }
             
-            //update value
+            //update paging value
             self.currentPage += 1
             self.count = self.searchResult.count
-            print(self.count)
             
             self.configureFilterList()
             
@@ -92,6 +92,7 @@ class HomeSearchViewModel{
         let list = NSMutableArray()
         for item in searchResult{
             if let result = item as? MusicResult, let country = result.country {
+                //check if the value is already in the list or not
                 if !list.contains(country) {
                     list.add(country)
                 }
@@ -108,6 +109,7 @@ class HomeSearchViewModel{
         let list = NSMutableArray()
         for item in searchResult{
             if let result = item as? MusicResult, let kind = result.kind {
+                //check if the value is already in the list or not
                 if !list.contains(kind) {
                     list.add(kind)
                 }

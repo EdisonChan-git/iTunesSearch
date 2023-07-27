@@ -112,12 +112,12 @@ extension HomeSearchViewController: UITableViewDataSource {
         }else{
             let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
             cell.setupMusicResultData(data: MusicResult)
-            
-            if indexPath.row == viewModel.searchResult.count - 5 { // last 5 cell
-                if !viewModel.noMoreResult { // check if more items to fetch
-                    viewModel.getNext20SearchResult {
-                        tableView.reloadData()
-                    }
+        }
+        
+        if indexPath.row == viewModel.searchResult.count - 5 { // last 5 cell
+            if !viewModel.noMoreResult { // check if more items to fetch
+                viewModel.getNext20SearchResult {
+                    tableView.reloadData()
                 }
             }
         }
@@ -132,9 +132,10 @@ extension HomeSearchViewController: UITableViewDelegate {
         if let ArtistResult = viewModel.searchResult[indexPath.row] as? ArtistResult{
             Utils.shared.openURL(ArtistResult.artistLinkUrl ?? "")
         }else if let AlbumResult = viewModel.searchResult[indexPath.row] as? AlbumResult{
-            Utils.shared.openURL(AlbumResult.collectionViewUrl ?? "")
+            Utils.shared.openURL(AlbumResult.collectionViewUrl )
         }else{
             let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
+            print("Want to open \(MusicResult.trackName!) By \(MusicResult.artistName!)")
             
         }
     }

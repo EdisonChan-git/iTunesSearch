@@ -18,17 +18,19 @@ class APIManager {
             fetchiTunesArtistResult(searchText: searchText, currentPage: currentPage, offset: offset, resultList: resultList) { arr in
                 completion(arr)
             }
+        }else if(currentSelectType == 1){
+            fetchiTunesAlbumResult(searchText: searchText, currentPage: currentPage, offset: offset, resultList: resultList) { arr in
+                completion(arr)
+            }
         }else{
-            fetchiTunesMusicAlbumResult(searchText: searchText, currentSelectType: currentSelectType, currentPage: currentPage, offset: offset, resultList: resultList) { arr in
+            fetchiTunesMusicResult(searchText: searchText, currentSelectType: currentSelectType, currentPage: currentPage, offset: offset, resultList: resultList) { arr in
                 completion(arr)
             }
         }
     }
     
-    func fetchiTunesMusicAlbumResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
-        let entity = currentSelectType == 0 ? "song" : "album"
-        
-        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, entity)
+    func fetchiTunesMusicResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
+        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "song")
         let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
         let url = URL(string: encodedUrl!)!
         AF.request(url).validate().responseJSON { response in
@@ -54,6 +56,34 @@ class APIManager {
         }
     }
     
+    func fetchiTunesAlbumResult(searchText: String!, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
+        
+        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "album")
+        let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
+        let url = URL(string: encodedUrl!)!
+        AF.request(url).validate().responseJSON { response in
+            switch response.result {
+            case .success(let data):
+                if let json = data as? [String: Any]{
+                    if let iTunesAlbumResult = iTunesAlbumResult(json: json){
+                        var newResultList = NSMutableArray()
+                        if(resultList != nil){
+                            newResultList = NSMutableArray(array: resultList!)
+                        }
+                        newResultList.addObjects(from: iTunesAlbumResult.results!)
+                        
+                        completion(newResultList)
+                    }else{
+                        print("error occur!")
+                    }
+                    
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func fetchiTunesArtistResult(searchText: String!, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         
         let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicArtist")
@@ -63,12 +93,12 @@ class APIManager {
             switch response.result {
             case .success(let data):
                 if let json = data as? [String: Any]{
-                    if let iTunesArtistResultResponse = iTunesArtistResultResponse(json: json){
+                    if let iTunesArtistResult = iTunesArtistResult(json: json){
                         var newResultList = NSMutableArray()
                         if(resultList != nil){
                             newResultList = NSMutableArray(array: resultList!)
                         }
-                        newResultList.addObjects(from: iTunesArtistResultResponse.results!)
+                        newResultList.addObjects(from: iTunesArtistResult.results!)
                         
                         completion(newResultList)
                     }else{

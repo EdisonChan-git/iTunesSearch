@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeSearchViewController" customModule="iTunesSearch" customModuleProvider="target">
             <connections>
+                <outlet property="filterButton" destination="O7L-rm-J1T" id="ekE-FK-BIZ"/>
                 <outlet property="headerLabel" destination="IEm-dk-gqE" id="JS8-nD-1mQ"/>
                 <outlet property="langButton" destination="uih-3O-gsg" id="OcN-ry-BWR"/>
                 <outlet property="searchBar" destination="uzN-2i-Kzz" id="fBA-2u-l2h"/>

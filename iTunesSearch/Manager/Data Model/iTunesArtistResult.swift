@@ -7,7 +7,7 @@
 
 import Foundation
 
-class iTunesArtistResultResponse: NSObject {
+class iTunesArtistResult: NSObject {
     var resultCount: Int!
     var results: [ArtistResult]!
     

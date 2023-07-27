@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func localize(comment: String = "") -> String {
@@ -22,5 +23,28 @@ extension String {
         }
 
         return NSLocalizedString(self, bundle: bundle, comment: "")
+    }
+}
+
+class Utils {
+    static let shared = Utils()
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
+    }
+
+    func openURL(_ urlString: String) {
+        guard let url = URL(string: urlString) else {
+            showAlert(title: "Error", message: "Invalid URL: \(urlString)")
+            return
+        }
+        
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
+        } else {
+            showAlert(title: "Error", message: "Cannot open URL: \(urlString)")
+        }
     }
 }

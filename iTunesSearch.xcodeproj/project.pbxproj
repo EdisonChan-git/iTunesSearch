@@ -19,6 +19,7 @@
 		AEA177BD2A724A030057BA0B /* HomeSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA177BC2A724A030057BA0B /* HomeSearchViewModel.swift */; };
 		AEA177C02A724A880057BA0B /* TapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA177BE2A724A880057BA0B /* TapView.swift */; };
 		AEA177C12A724A880057BA0B /* TapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEA177BF2A724A880057BA0B /* TapView.xib */; };
+		AEA177C32A7260A00057BA0B /* iTunesAlbumResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA177C22A7260A00057BA0B /* iTunesAlbumResult.swift */; };
 		AECE6FC82A71212C00D85DDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECE6FC72A71212C00D85DDC /* AppDelegate.swift */; };
 		AECE6FCC2A71212C00D85DDC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECE6FCB2A71212C00D85DDC /* ViewController.swift */; };
 		AECE6FCF2A71212C00D85DDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AECE6FCD2A71212C00D85DDC /* Main.storyboard */; };
@@ -67,6 +68,7 @@
 		AEA177BC2A724A030057BA0B /* HomeSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchViewModel.swift; sourceTree = "<group>"; };
 		AEA177BE2A724A880057BA0B /* TapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapView.swift; sourceTree = "<group>"; };
 		AEA177BF2A724A880057BA0B /* TapView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TapView.xib; sourceTree = "<group>"; };
+		AEA177C22A7260A00057BA0B /* iTunesAlbumResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesAlbumResult.swift; sourceTree = "<group>"; };
 		AECE6FC42A71212C00D85DDC /* iTunesSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunesSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AECE6FC72A71212C00D85DDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AECE6FCB2A71212C00D85DDC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				AEA177B72A7248F60057BA0B /* iTunesSearchResult.swift */,
 				AEA177B92A72496C0057BA0B /* iTunesArtistResult.swift */,
+				AEA177C22A7260A00057BA0B /* iTunesAlbumResult.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				AEA177BA2A72496C0057BA0B /* iTunesArtistResult.swift in Sources */,
 				AEA177C02A724A880057BA0B /* TapView.swift in Sources */,
 				AECE6FCC2A71212C00D85DDC /* ViewController.swift in Sources */,
+				AEA177C32A7260A00057BA0B /* iTunesAlbumResult.swift in Sources */,
 				AEA177BD2A724A030057BA0B /* HomeSearchViewModel.swift in Sources */,
 				AEA177B12A7246F20057BA0B /* SearchResultTableViewCell.swift in Sources */,
 				AECE6FC82A71212C00D85DDC /* AppDelegate.swift in Sources */,

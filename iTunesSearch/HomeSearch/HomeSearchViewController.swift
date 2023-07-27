@@ -10,6 +10,7 @@ import UIKit
 class HomeSearchViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var langButton: UIButton!
+    @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultTableView: UITableView!
     @IBOutlet weak var tableViewTopStackView: UIStackView!
@@ -103,22 +104,14 @@ extension HomeSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : SearchResultTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SearchResultTableViewCell", for: indexPath) as! SearchResultTableViewCell
+        cell.TypeName.isHidden = true
         if let ArtistResult = viewModel.searchResult[indexPath.row] as? ArtistResult{
-            cell.CellName.text = ArtistResult.artistName
-            cell.TypeName.text = ArtistResult.artistType
-            cell.Sub.text = ArtistResult.primaryGenreName
-            cell.albumArtImg.image = UIImage(named: "placeholder-image")
+            cell.setupArtistResultData(data: ArtistResult)
+        }else if let AlbumResult = viewModel.searchResult[indexPath.row] as? AlbumResult{
+            cell.setupAblumResultData(data: AlbumResult)
         }else{
             let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
-            cell.CellName.text = MusicResult.trackName ?? MusicResult.collectionName ?? ""
-            if(MusicResult.kind != nil){
-                cell.TypeName.isHidden = false
-                cell.TypeName.text = MusicResult.kind!
-            }else{
-                cell.TypeName.isHidden = true
-            }
-            cell.Sub.text = MusicResult.artistName ?? ""
-            cell.configureAlbumArtImage(url: MusicResult.artworkUrl100!)
+            cell.setupMusicResultData(data: MusicResult)
             
             if indexPath.row == viewModel.searchResult.count - 5 { // last 5 cell
                 if !viewModel.noMoreResult { // check if more items to fetch
@@ -136,7 +129,14 @@ extension HomeSearchViewController: UITableViewDataSource {
 
 extension HomeSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if let ArtistResult = viewModel.searchResult[indexPath.row] as? ArtistResult{
+            Utils.shared.openURL(ArtistResult.artistLinkUrl ?? "")
+        }else if let AlbumResult = viewModel.searchResult[indexPath.row] as? AlbumResult{
+            Utils.shared.openURL(AlbumResult.collectionViewUrl ?? "")
+        }else{
+            let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
+            
+        }
     }
 }
 
@@ -148,7 +148,7 @@ extension HomeSearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.currentSearchType = indexPath.row
         self.viewModel.currentSearchType = indexPath.row
-        print(self.currentSearchType)
+        self.filterButton.isHidden = self.currentSearchType != 0
         search()
     }
 }

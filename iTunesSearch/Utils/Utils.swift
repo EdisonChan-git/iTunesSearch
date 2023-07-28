@@ -139,4 +139,9 @@ class Utils {
         }
     }
     
+    func clearFavouriteListFromUserDefault() {
+        UserDefaults.standard.removeObject(forKey: "myList")
+        UserDefaults.standard.synchronize()
+    }
+    
 }

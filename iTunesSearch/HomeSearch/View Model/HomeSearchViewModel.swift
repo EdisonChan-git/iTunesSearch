@@ -132,18 +132,36 @@ class HomeSearchViewModel{
     }
     
     func performFilterOperation(){
-        let arr = self.searchResult.mutableCopy() as! NSMutableArray
-        
+        //perform OR operation in Country Filter
+        let arr_passCountryFilter = NSMutableArray()
         for filterItem in selected_filter_country{
+            let arr = self.searchResult.mutableCopy() as! NSMutableArray
             let predicate = NSPredicate(format: "country == %@", filterItem as! CVarArg)
             arr.filter(using: predicate)
+            arr_passCountryFilter.addObjects(from: arr as [AnyObject])
         }
         
+        //perform OR operation in Media Type Filter
+        let arr_passMediaTypeFilter = NSMutableArray()
         for filterItem in selected_filter_mediaType{
+            let arr = self.searchResult.mutableCopy() as! NSMutableArray
             let predicate = NSPredicate(format: "kind == %@", filterItem as! CVarArg)
             arr.filter(using: predicate)
+            arr_passMediaTypeFilter.addObjects(from: arr as [AnyObject])
         }
         
-        self.displaySearchResult = arr
+        if(selected_filter_country.count > 0 && selected_filter_mediaType.count > 0){
+            //perform AND operation
+            let commonResults = arr_passCountryFilter.filter { result1 in
+                arr_passMediaTypeFilter.contains { result2 in
+                    (result1 as! MusicResult).trackId == (result2 as! MusicResult).trackId
+                }
+            }
+            self.displaySearchResult = NSMutableArray(array: commonResults)
+        }else if(selected_filter_country.count > 0){
+            self.displaySearchResult = arr_passCountryFilter
+        }else{
+            self.displaySearchResult = arr_passMediaTypeFilter
+        }
     }
 }

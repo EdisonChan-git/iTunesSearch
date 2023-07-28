@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SVProgressHUD
 
 class HomeSearchViewModel{
     var searchResult: NSMutableArray = []
@@ -52,7 +53,10 @@ class HomeSearchViewModel{
     
     func getSearchResult(completion: @escaping () -> Void) {
         if(searchText.count == 0) {return}
+        SVProgressHUD.show()
         APIManager.shared.fetchiTunesResult(searchText: searchText, currentSelectType: currentSearchType, currentPage: currentPage, offset: offset, resultList: nil) { response in
+            SVProgressHUD.dismiss()
+            
             self.searchResult = response
             self.displaySearchResult = response
             if(self.count == self.searchResult.count){
@@ -73,7 +77,10 @@ class HomeSearchViewModel{
     
     func getNext20SearchResult(completion: @escaping () -> Void) {
         if(searchText.count == 0) {return}
+        SVProgressHUD.show()
         APIManager.shared.fetchiTunesResult(searchText: searchText, currentSelectType: currentSearchType, currentPage: (currentPage*offset), offset: offset, resultList: searchResult) { response in
+            SVProgressHUD.dismiss()
+            
             self.searchResult = response
             self.displaySearchResult = response
             if(self.count == self.searchResult.count){

@@ -9,6 +9,7 @@ pod 'Alamofire', '~> 5.4'
 pod 'SDWebImage', '~> 5.0'
 pod 'RxSwift', '~> 5.1'
 pod 'RxCocoa', '~> 5.1'
+pod 'SVProgressHUD'
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

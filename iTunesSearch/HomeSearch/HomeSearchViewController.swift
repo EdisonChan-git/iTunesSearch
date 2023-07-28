@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SVProgressHUD
 
 class HomeSearchViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
@@ -129,16 +130,18 @@ extension HomeSearchViewController: UITableViewDataSource {
             cell.setupMusicResultData(data: MusicResult)
         }
         
-        if indexPath.row == viewModel.displaySearchResult.count - 5 { // last 5 cell
+        cell.selectionStyle = .none
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.displaySearchResult.count - 1 { // last 1 cell
             if !viewModel.noMoreResult || !viewModel.applyingFilter { // check if more items to fetch
                 viewModel.getNext20SearchResult {
                     tableView.reloadData()
                 }
             }
         }
-        
-        cell.selectionStyle = .none
-        return cell
     }
 }
 

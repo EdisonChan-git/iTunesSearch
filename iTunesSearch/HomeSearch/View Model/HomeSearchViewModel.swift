@@ -7,10 +7,11 @@
 
 import Foundation
 import SVProgressHUD
+import RxSwift
+import RxCocoa
 
 class HomeSearchViewModel{
     var searchResult: NSMutableArray = []
-    var displaySearchResult: NSMutableArray = []
     var filterList_country: NSMutableArray = []
     var filterList_mediaType: NSMutableArray = []
     var searchText = ""
@@ -19,10 +20,11 @@ class HomeSearchViewModel{
     var count = 0
     var noMoreResult = false
     var applyingFilter = false
-    var currentSearchType = 0
+    var currentSearchType = 0 // 0 = Song, 1 = Alubm, 2 = Artist
     
     var selected_filter_country: NSMutableArray = []
     var selected_filter_mediaType: NSMutableArray = []
+    var displaySearchResult = BehaviorRelay<NSMutableArray>(value: NSMutableArray())
     
     func resetSearchParam() {
         currentPage = 0
@@ -35,30 +37,27 @@ class HomeSearchViewModel{
         filterList_mediaType = []
     }
     
-    func performSearch(searchText: String, completion: @escaping () -> Void) {
+    func performSearch(searchText: String) {
         resetSearchParam()
         
         self.searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: " ", with: "+")
         
         if(searchText.count == 0){
             searchResult.removeAllObjects()
-            displaySearchResult.removeAllObjects()
-            completion()
+            displaySearchResult.value.removeAllObjects()
         }else{
-            getSearchResult {
-                completion()
-            }
+            getSearchResult()
         }
     }
     
-    func getSearchResult(completion: @escaping () -> Void) {
+    func getSearchResult() {
         if(searchText.count == 0) {return}
         SVProgressHUD.show()
         APIManager.shared.fetchiTunesResult(searchText: searchText, currentSelectType: currentSearchType, currentPage: currentPage, offset: offset, resultList: nil) { response in
             SVProgressHUD.dismiss()
             
             self.searchResult = response
-            self.displaySearchResult = response
+            self.displaySearchResult.accept(response)
             if(self.count == self.searchResult.count){
                 self.noMoreResult = true
             }
@@ -70,19 +69,17 @@ class HomeSearchViewModel{
             self.configureFilterList()
             
             self.performFilterOperation()
-            
-            completion()
         }
     }
     
-    func getNext20SearchResult(completion: @escaping () -> Void) {
+    func getNext20SearchResult() {
         if(searchText.count == 0) {return}
         SVProgressHUD.show()
         APIManager.shared.fetchiTunesResult(searchText: searchText, currentSelectType: currentSearchType, currentPage: (currentPage*offset), offset: offset, resultList: searchResult) { response in
             SVProgressHUD.dismiss()
             
             self.searchResult = response
-            self.displaySearchResult = response
+            self.displaySearchResult.accept(response)
             if(self.count == self.searchResult.count){
                 self.noMoreResult = true
             }
@@ -94,8 +91,6 @@ class HomeSearchViewModel{
             self.configureFilterList()
             
             self.performFilterOperation()
-            
-            completion()
         }
     }
     
@@ -164,13 +159,13 @@ class HomeSearchViewModel{
                     (result1 as! MusicResult).trackId == (result2 as! MusicResult).trackId
                 }
             }
-            self.displaySearchResult = NSMutableArray(array: commonResults)
+            self.displaySearchResult.accept(NSMutableArray(array: commonResults))
         }else if(selected_filter_country.count > 0){
-            self.displaySearchResult = arr_passCountryFilter
+            self.displaySearchResult.accept(arr_passCountryFilter)
         }else if(selected_filter_mediaType.count > 0){
-            self.displaySearchResult = arr_passMediaTypeFilter
+            self.displaySearchResult.accept(arr_passMediaTypeFilter)
         }else{
-            self.displaySearchResult = searchResult
+            self.displaySearchResult.accept(searchResult)
         }
     }
 }

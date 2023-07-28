@@ -23,7 +23,6 @@ class HomeSearchViewController: UIViewController {
     let viewModel = HomeSearchViewModel()
     var searchText : String = ""
     var tapArray = ["Song".localize(),"Album".localize(),"Artist".localize()]
-    var currentSearchType = 0 // 0 = Song, 1 = Alubm, 2 = Artist
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -46,6 +45,16 @@ class HomeSearchViewController: UIViewController {
                 self?.search()
             })
             .disposed(by: disposeBag)
+        
+        viewModel.displaySearchResult.subscribe(onNext: { _ in
+            self.searchResultTableView.reloadData()
+            
+            self.tapCollectionView.reloadData()
+            
+            //The tableViewTopStackView component contains both the TapView and Filter Button elements, which are only displayed upon completion of a search operation
+            self.tableViewTopStackView.isHidden = self.viewModel.searchText.count == 0
+            
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,14 +70,8 @@ class HomeSearchViewController: UIViewController {
         self.tapCollectionView.reloadData()
     }
 
-    @objc func search() {
-        viewModel.performSearch(searchText: self.searchText, completion: {
-            self.searchResultTableView.reloadData()
-            self.tapCollectionView.reloadData()
-            
-            //The tableViewTopStackView component contains both the TapView and Filter Button elements, which are only displayed upon completion of a search operation
-            self.tableViewTopStackView.isHidden = self.viewModel.searchText.count == 0
-        })
+    func search() {
+        viewModel.performSearch(searchText: self.searchText)
     }
     
     @objc func languageDidChange() {
@@ -115,18 +118,18 @@ extension HomeSearchViewController: UIScrollViewDelegate {
 
 extension HomeSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.displaySearchResult.count
+        return viewModel.displaySearchResult.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : SearchResultTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SearchResultTableViewCell", for: indexPath) as! SearchResultTableViewCell
         cell.TypeName.isHidden = true
-        if let ArtistResult = viewModel.displaySearchResult[indexPath.row] as? ArtistResult{
+        if let ArtistResult = viewModel.displaySearchResult.value[indexPath.row] as? ArtistResult{
             cell.setupArtistResultData(data: ArtistResult)
-        }else if let AlbumResult = viewModel.displaySearchResult[indexPath.row] as? AlbumResult{
+        }else if let AlbumResult = viewModel.displaySearchResult.value[indexPath.row] as? AlbumResult{
             cell.setupAblumResultData(data: AlbumResult)
         }else{
-            let MusicResult = viewModel.displaySearchResult[indexPath.row] as! MusicResult
+            let MusicResult = viewModel.displaySearchResult.value[indexPath.row] as! MusicResult
             cell.setupMusicResultData(data: MusicResult)
         }
         
@@ -135,11 +138,9 @@ extension HomeSearchViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.displaySearchResult.count - 1 { // last 1 cell
+        if indexPath.row == viewModel.displaySearchResult.value.count - 1 { // last 1 cell
             if !viewModel.noMoreResult || !viewModel.applyingFilter { // check if more items to fetch
-                viewModel.getNext20SearchResult {
-                    tableView.reloadData()
-                }
+                viewModel.getNext20SearchResult()
             }
         }
     }
@@ -147,12 +148,12 @@ extension HomeSearchViewController: UITableViewDataSource {
 
 extension HomeSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let ArtistResult = viewModel.displaySearchResult[indexPath.row] as? ArtistResult{
+        if let ArtistResult = viewModel.displaySearchResult.value[indexPath.row] as? ArtistResult{
             Utils.shared.openURL(ArtistResult.artistLinkUrl ?? "")
-        }else if let AlbumResult = viewModel.displaySearchResult[indexPath.row] as? AlbumResult{
+        }else if let AlbumResult = viewModel.displaySearchResult.value[indexPath.row] as? AlbumResult{
             Utils.shared.openURL(AlbumResult.collectionViewUrl )
         }else{
-            let MusicResult = viewModel.displaySearchResult[indexPath.row] as! MusicResult
+            let MusicResult = viewModel.displaySearchResult.value[indexPath.row] as! MusicResult
             print("Want to open \(MusicResult.trackName!) By \(MusicResult.artistName!)")
             let vc = SongDetailViewController()
             vc.data = MusicResult
@@ -169,11 +170,10 @@ extension HomeSearchViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //Update current search type (0 = Song, 1 = Alubm, 2 = Artist)
-        self.currentSearchType = indexPath.row
         self.viewModel.currentSearchType = indexPath.row
         
         //Only show filter button when searching song
-        self.filterButton.isHidden = self.currentSearchType != 0
+        self.filterButton.isHidden = self.viewModel.currentSearchType != 0
         
         //Perform Search
         search()
@@ -190,7 +190,7 @@ extension HomeSearchViewController: UICollectionViewDataSource {
             cell.setupCell(
                 displayText: self.tapArray[indexPath.row] ,
                 accessibilityText: self.tapArray[indexPath.row] ,
-                isSelected: (self.currentSearchType == indexPath.row)
+                isSelected: (self.viewModel.currentSearchType == indexPath.row)
             )
             return cell
         }

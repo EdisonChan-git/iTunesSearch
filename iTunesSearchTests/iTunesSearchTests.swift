@@ -73,7 +73,7 @@ final class iTunesSearchTests: XCTestCase {
         
         let viewModel = HomeSearchViewModel()
         viewModel.searchResult = resultArr
-        viewModel.displaySearchResult = resultArr
+        viewModel.displaySearchResult.accept(resultArr)
         viewModel.configureFilterList()
         
         // Verify filter value
@@ -91,7 +91,7 @@ final class iTunesSearchTests: XCTestCase {
         viewModel.performFilterOperation()
         
         // Verify filter result
-        XCTAssertEqual(viewModel.displaySearchResult.count, 1)
+        XCTAssertEqual(viewModel.displaySearchResult.value.count, 1)
         
         //test filer case [country : JPN, USA]
         viewModel.selected_filter_mediaType = []
@@ -99,7 +99,7 @@ final class iTunesSearchTests: XCTestCase {
         viewModel.performFilterOperation()
         
         // Verify filter result
-        XCTAssertEqual(viewModel.displaySearchResult.count, 2)
+        XCTAssertEqual(viewModel.displaySearchResult.value.count, 2)
         
         //test filer case [Country : JPN, Media Type : music-video]
         viewModel.selected_filter_mediaType = ["music-video"]
@@ -107,7 +107,7 @@ final class iTunesSearchTests: XCTestCase {
         viewModel.performFilterOperation()
         
         // Verify filter result
-        XCTAssertEqual(viewModel.displaySearchResult.count, 0)
+        XCTAssertEqual(viewModel.displaySearchResult.value.count, 0)
         
         //test filer case [Country : USA, Media Type : music-video]
         viewModel.selected_filter_mediaType = ["music-video"]
@@ -115,7 +115,7 @@ final class iTunesSearchTests: XCTestCase {
         viewModel.performFilterOperation()
         
         // Verify filter result
-        XCTAssertEqual(viewModel.displaySearchResult.count, 1)
+        XCTAssertEqual(viewModel.displaySearchResult.value.count, 1)
         
         //test filer case [Country : USA, JPN, Media Type : music-video]
         viewModel.selected_filter_mediaType = ["music-video"]
@@ -123,7 +123,7 @@ final class iTunesSearchTests: XCTestCase {
         viewModel.performFilterOperation()
         
         // Verify filter result
-        XCTAssertEqual(viewModel.displaySearchResult.count, 1)
+        XCTAssertEqual(viewModel.displaySearchResult.value.count, 1)
         
         //test filer case [Country : USA, JPN, Media Type : music-video, song]
         viewModel.selected_filter_mediaType = ["music-video","song"]
@@ -131,7 +131,7 @@ final class iTunesSearchTests: XCTestCase {
         viewModel.performFilterOperation()
         
         // Verify filter result
-        XCTAssertEqual(viewModel.displaySearchResult.count, 2)
+        XCTAssertEqual(viewModel.displaySearchResult.value.count, 2)
         
     }
 

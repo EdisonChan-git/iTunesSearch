@@ -21,6 +21,9 @@ class HomeSearchFilterViewModel{
         self.raw_filterList_mediaType = raw_filterList_mediaType
     }
     
+    /**
+    Resets selected filter values.
+    */
     func resetFilter()  {
         selcted_country.accept(NSMutableArray())
         selcted_mediaType.accept(NSMutableArray())

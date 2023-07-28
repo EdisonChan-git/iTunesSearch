@@ -16,6 +16,11 @@ class FilterSelectionTableViewCell: UITableViewCell {
         // Initialization code
     }
     
+    /**
+    Updates the selection state of a UI element by hiding or showing a tick image view based on the given Boolean value.
+    Parameters:
+     isTick: A Boolean value indicating whether the tick image view should be hidden or shown.
+    */
     func updateSelection(isTick: Bool){
         tick.isHidden = !isTick
     }

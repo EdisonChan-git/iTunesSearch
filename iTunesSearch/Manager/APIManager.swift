@@ -13,6 +13,10 @@ class APIManager {
     static let shared = APIManager()
     private let searchBaseURL = "https://itunes.apple.com/search?term=%@&offset=%ld&limit=%ld&entity=%@&lang=%@"
     
+    /**
+    Retrieves the language code to use for API calls based on the user's preferred language.
+    Returns: A String representing the language code to use for API calls.
+    */
     func APILang() -> String {
         let defaultLanguage = "en"
         let appLanguage = UserDefaults.standard.string(forKey: "AppLanguage") ?? defaultLanguage
@@ -26,6 +30,16 @@ class APIManager {
         }
     }
     
+    /**
+    Fetches search results from the iTunes database based on the given search text, result type, and pagination information, and returns the results in an NSMutableArray.
+    Parameters:
+        searchText: The text to search for in the iTunes database.
+        currentSelectType: The type of search result to fetch. (0=Music, 1=Album, 2=Artist)
+        currentPage: The current page of search results to fetch.
+        offset: The offset of search results to fetch.
+        resultList: An optional NSMutableArray containing previously fetched search results.
+        completion: A closure to be called upon completion of the API request, containing the fetched search results in an NSMutableArray.
+    */
     func fetchiTunesResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         if(currentSelectType == 2){
             fetchiTunesArtistResult(searchText: searchText, currentPage: currentPage, offset: offset, resultList: resultList) { arr in
@@ -42,6 +56,16 @@ class APIManager {
         }
     }
     
+    /**
+    Fetches iTunes music search results based on the given search text and pagination information, and returns the results in an NSMutableArray.
+    Parameters:
+        searchText: The text to search for in the iTunes music database.
+        currentSelectType: The type of search result to fetch. (0=Music, 1=Album, 2=Artist)
+        currentPage: The current page of search results to fetch.
+        offset: The offset of search results to fetch.
+        resultList: An optional NSMutableArray containing previously fetched search results.
+        completion: A closure to be called upon completion of the API request, containing the fetched search results in an NSMutableArray.
+    */
     func fetchiTunesMusicResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicTrack", APILang())
         let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
@@ -69,6 +93,15 @@ class APIManager {
         }
     }
     
+    /**
+    Fetches iTunes album search results based on the given search text and pagination information, and returns the results in an NSMutableArray.
+    Parameters:
+        searchText: The text to search for in the iTunes album database.
+        currentPage: The current page of search results to fetch.
+        offset: The offset of search results to fetch.
+        resultList: An optional NSMutableArray containing previously fetched search results.
+        completion: A closure to be called upon completion of the API request, containing the fetched search results in an NSMutableArray.
+    */
     func fetchiTunesAlbumResult(searchText: String!, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         
         let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "album", APILang())
@@ -97,6 +130,15 @@ class APIManager {
         }
     }
     
+    /**
+    Fetches iTunes artist search results based on the given search text and pagination information, and returns the results in an NSMutableArray.
+    Parameters:
+        searchText: The text to search for in the iTunes artist database.
+        currentPage: The current page of search results to fetch.
+        offset: The offset of search results to fetch.
+        resultList: An optional NSMutableArray containing previously fetched search results.
+        completion: A closure to be called upon completion of the API request, containing the fetched search results in an NSMutableArray.
+    */
     func fetchiTunesArtistResult(searchText: String!, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         
         let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicArtist", APILang())

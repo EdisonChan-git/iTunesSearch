@@ -20,12 +20,19 @@ class HomeSearchViewModel{
     var count = 0
     var noMoreResult = false
     var applyingFilter = false
-    var currentSearchType = 0 // 0 = Song, 1 = Alubm, 2 = Artist
+    
+    /**
+     search criteria (0 = Song, 1 = Alubm, 2 = Artist)
+    */
+    var currentSearchType = 0
     
     var selected_filter_country: NSMutableArray = []
     var selected_filter_mediaType: NSMutableArray = []
     var displaySearchResult = BehaviorRelay<NSMutableArray>(value: NSMutableArray())
     
+    /**
+    Resets the search parameters and filter values.
+    */
     func resetSearchParam() {
         currentPage = 0
         offset = 20
@@ -37,6 +44,11 @@ class HomeSearchViewModel{
         filterList_mediaType = []
     }
     
+    /**
+    Performs a search based on the inputted search query, resets the search parameters and filter values, and updates the search results.
+    Parameter
+        searchText: The search query to perform.
+    */
     func performSearch(searchText: String) {
         resetSearchParam()
         
@@ -50,6 +62,9 @@ class HomeSearchViewModel{
         }
     }
     
+    /**
+    Fetches the first 20 search results based on the current search criteria, updates the searchResult property with the new results, and updates the UI with the filtered results.
+    */
     func getSearchResult() {
         if(searchText.count == 0) {return}
         SVProgressHUD.show()
@@ -72,6 +87,10 @@ class HomeSearchViewModel{
         }
     }
     
+    /**
+    Fetches the next 20 search results based on the current search criteria, updates the searchResult property with the new results, and updates the UI with the filtered results.
+    The function fetches the next 20 search results using the APIManager fetchiTunesResult method, passing the current search criteria and pagination values. It then updates the searchResult property with the new results, updates the UI with the filtered results, and updates the filter and pagination values. The function also updates the noMoreResult property if there are no more results to fetch.
+    */
     func getNext20SearchResult() {
         if(searchText.count == 0) {return}
         SVProgressHUD.show()
@@ -94,11 +113,17 @@ class HomeSearchViewModel{
         }
     }
     
+    /**
+     Configures the country and media type filter lists based on the search results.
+    */
     func configureFilterList() {
         configureCountryListFromResult()
         configureMediaTypeListFromResult()
     }
     
+    /**
+     Configures the country filter list based on the search results, and updates the filterList_country property with the filtered countries.
+    */
     func configureCountryListFromResult() {
         //reset data
         filterList_country = []
@@ -116,6 +141,9 @@ class HomeSearchViewModel{
         filterList_country = list
     }
     
+    /**
+     Configures the country filter list based on the search results, and updates the filterList_mediaType property with the filtered media type.
+    */
     func configureMediaTypeListFromResult() {
         //reset data
         filterList_mediaType = []
@@ -133,6 +161,9 @@ class HomeSearchViewModel{
         filterList_mediaType = list
     }
     
+    /**
+    Performs filter operations on the search result based on the selected country and media type filters. The filtered results are then displayed using the displaySearchResult BehaviorRelay.
+    */
     func performFilterOperation(){
         //perform OR operation in Country Filter
         let arr_passCountryFilter = NSMutableArray()

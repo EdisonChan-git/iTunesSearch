@@ -17,6 +17,13 @@ class TapView: UICollectionViewCell {
         self.tabBGView.layer.cornerRadius = 16
     }
     
+    /**
+    Sets up the appearance and accessibility information for a UI cell based on the given parameters.
+    Parameters:
+        displayText: The text to display in the cell.
+        accessibilityText: The accessibility text to set for the cell.
+        isSelected: A Boolean value indicating whether the cell is selected.
+    */
     func setupCell(displayText:String, accessibilityText:String, isSelected:Bool) {
         if(isSelected){
             self.tabLabel.textColor = .white

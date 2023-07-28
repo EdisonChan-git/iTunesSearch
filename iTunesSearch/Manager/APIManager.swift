@@ -30,7 +30,7 @@ class APIManager {
     }
     
     func fetchiTunesMusicResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
-        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "song")
+        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicTrack")
         let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
         let url = URL(string: encodedUrl!)!
         AF.request(url).validate().responseJSON { response in

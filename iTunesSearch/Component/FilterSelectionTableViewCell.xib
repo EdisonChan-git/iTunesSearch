@@ -1,21 +1,54 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="FilterSelectionTableViewCell" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Sa8-B9-bRV" customClass="FilterSelectionTableViewCell" customModule="iTunesSearch" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sa8-B9-bRV" id="0h3-l3-pAo">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C22-kf-xUg">
+                        <rect key="frame" x="16" y="12" width="240" height="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tick" translatesAutoresizingMaskIntoConstraints="NO" id="5Am-yo-rYD">
+                        <rect key="frame" x="272" y="6" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="eVD-6x-jl7"/>
+                            <constraint firstAttribute="width" constant="32" id="ifg-8U-n01"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="C22-kf-xUg" firstAttribute="centerY" secondItem="0h3-l3-pAo" secondAttribute="centerY" id="7q3-DP-h9O"/>
+                    <constraint firstItem="5Am-yo-rYD" firstAttribute="centerY" secondItem="0h3-l3-pAo" secondAttribute="centerY" id="C5b-3T-zu4"/>
+                    <constraint firstAttribute="trailing" secondItem="5Am-yo-rYD" secondAttribute="trailing" constant="16" id="IvX-vR-vbn"/>
+                    <constraint firstItem="5Am-yo-rYD" firstAttribute="leading" secondItem="C22-kf-xUg" secondAttribute="trailing" constant="16" id="PQ6-rO-o3h"/>
+                    <constraint firstItem="C22-kf-xUg" firstAttribute="leading" secondItem="0h3-l3-pAo" secondAttribute="leading" constant="16" id="npu-Kl-ldR"/>
+                    <constraint firstItem="5Am-yo-rYD" firstAttribute="centerY" secondItem="C22-kf-xUg" secondAttribute="centerY" id="rrO-EF-lVD"/>
+                </constraints>
             </tableViewCellContentView>
-            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <viewLayoutGuide key="safeArea" id="MI7-dG-QyR"/>
+            <connections>
+                <outlet property="tick" destination="5Am-yo-rYD" id="arG-EZ-ZOm"/>
+                <outlet property="value" destination="C22-kf-xUg" id="OOH-da-PVb"/>
+            </connections>
+            <point key="canvasLocation" x="131" y="-11"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="tick" width="512" height="512"/>
+    </resources>
 </document>

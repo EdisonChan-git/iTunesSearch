@@ -64,9 +64,10 @@ class HomeSearchViewController: UIViewController {
     }
     
     @IBAction func didClickFilter(_ sender: Any) {
-        //To Do
-        //1. pass filter value from search result
-        //2. init new filter list
+        let vc = HomeSearchFilterViewController(raw_filterList_country: viewModel.filterList_country, raw_filterList_mediaType: viewModel.filterList_mediaType, selected_filterList_country: viewModel.selected_filter_country, selected_filterList_mediaType: viewModel.selected_filter_mediaType)
+        vc.delegate = self
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @IBAction func didClickFavourite(_ sender: Any) {
         let vc = FavouriteListViewController()
@@ -101,23 +102,23 @@ extension HomeSearchViewController: UIScrollViewDelegate {
 
 extension HomeSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.searchResult.count
+        return viewModel.displaySearchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : SearchResultTableViewCell = tableView.dequeueReusableCell(withIdentifier: "SearchResultTableViewCell", for: indexPath) as! SearchResultTableViewCell
         cell.TypeName.isHidden = true
-        if let ArtistResult = viewModel.searchResult[indexPath.row] as? ArtistResult{
+        if let ArtistResult = viewModel.displaySearchResult[indexPath.row] as? ArtistResult{
             cell.setupArtistResultData(data: ArtistResult)
-        }else if let AlbumResult = viewModel.searchResult[indexPath.row] as? AlbumResult{
+        }else if let AlbumResult = viewModel.displaySearchResult[indexPath.row] as? AlbumResult{
             cell.setupAblumResultData(data: AlbumResult)
         }else{
-            let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
+            let MusicResult = viewModel.displaySearchResult[indexPath.row] as! MusicResult
             cell.setupMusicResultData(data: MusicResult)
         }
         
-        if indexPath.row == viewModel.searchResult.count - 5 { // last 5 cell
-            if !viewModel.noMoreResult { // check if more items to fetch
+        if indexPath.row == viewModel.displaySearchResult.count - 5 { // last 5 cell
+            if !viewModel.noMoreResult || !viewModel.applyingFilter { // check if more items to fetch
                 viewModel.getNext20SearchResult {
                     tableView.reloadData()
                 }
@@ -131,12 +132,12 @@ extension HomeSearchViewController: UITableViewDataSource {
 
 extension HomeSearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let ArtistResult = viewModel.searchResult[indexPath.row] as? ArtistResult{
+        if let ArtistResult = viewModel.displaySearchResult[indexPath.row] as? ArtistResult{
             Utils.shared.openURL(ArtistResult.artistLinkUrl ?? "")
-        }else if let AlbumResult = viewModel.searchResult[indexPath.row] as? AlbumResult{
+        }else if let AlbumResult = viewModel.displaySearchResult[indexPath.row] as? AlbumResult{
             Utils.shared.openURL(AlbumResult.collectionViewUrl )
         }else{
-            let MusicResult = viewModel.searchResult[indexPath.row] as! MusicResult
+            let MusicResult = viewModel.displaySearchResult[indexPath.row] as! MusicResult
             print("Want to open \(MusicResult.trackName!) By \(MusicResult.artistName!)")
             let vc = SongDetailViewController()
             vc.data = MusicResult
@@ -211,5 +212,16 @@ extension HomeSearchViewController: UISearchBarDelegate {
             timer?.invalidate()
         }
         timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(HomeSearchViewController.search), userInfo: nil, repeats: false)
+    }
+}
+
+extension HomeSearchViewController: FilterSelectionDelegate {
+    func didSelectFilters(_ Countryfilters: NSMutableArray,_ MediaTypefilter: NSMutableArray) {
+        // Handle the selected filters from selection page
+        viewModel.applyingFilter = true
+        viewModel.selected_filter_country = Countryfilters
+        viewModel.selected_filter_mediaType = MediaTypefilter
+        viewModel.performFilterOperation()
+        searchResultTableView.reloadData()
     }
 }

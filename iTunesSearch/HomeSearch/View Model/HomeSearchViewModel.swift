@@ -9,6 +9,7 @@ import Foundation
 
 class HomeSearchViewModel{
     var searchResult: NSMutableArray = []
+    var displaySearchResult: NSMutableArray = []
     var filterList_country: NSMutableArray = []
     var filterList_mediaType: NSMutableArray = []
     var searchText = ""
@@ -16,7 +17,11 @@ class HomeSearchViewModel{
     var offset = 20
     var count = 0
     var noMoreResult = false
+    var applyingFilter = false
     var currentSearchType = 0
+    
+    var selected_filter_country: NSMutableArray = []
+    var selected_filter_mediaType: NSMutableArray = []
     
     func resetSearchParam() {
         currentPage = 0
@@ -36,6 +41,7 @@ class HomeSearchViewModel{
         
         if(searchText.count == 0){
             searchResult.removeAllObjects()
+            displaySearchResult.removeAllObjects()
             completion()
         }else{
             getSearchResult {
@@ -48,6 +54,7 @@ class HomeSearchViewModel{
         if(searchText.count == 0) {return}
         APIManager.shared.fetchiTunesResult(searchText: searchText, currentSelectType: currentSearchType, currentPage: currentPage, offset: offset, resultList: nil) { response in
             self.searchResult = response
+            self.displaySearchResult = response
             if(self.count == self.searchResult.count){
                 self.noMoreResult = true
             }
@@ -57,6 +64,8 @@ class HomeSearchViewModel{
             self.count = self.searchResult.count
             
             self.configureFilterList()
+            
+            self.performFilterOperation()
             
             completion()
         }
@@ -66,6 +75,7 @@ class HomeSearchViewModel{
         if(searchText.count == 0) {return}
         APIManager.shared.fetchiTunesResult(searchText: searchText, currentSelectType: currentSearchType, currentPage: (currentPage*offset), offset: offset, resultList: searchResult) { response in
             self.searchResult = response
+            self.displaySearchResult = response
             if(self.count == self.searchResult.count){
                 self.noMoreResult = true
             }
@@ -75,6 +85,8 @@ class HomeSearchViewModel{
             self.count = self.searchResult.count
             
             self.configureFilterList()
+            
+            self.performFilterOperation()
             
             completion()
         }
@@ -117,5 +129,21 @@ class HomeSearchViewModel{
         }
         
         filterList_mediaType = list
+    }
+    
+    func performFilterOperation(){
+        let arr = self.searchResult.mutableCopy() as! NSMutableArray
+        
+        for filterItem in selected_filter_country{
+            let predicate = NSPredicate(format: "country == %@", filterItem as! CVarArg)
+            arr.filter(using: predicate)
+        }
+        
+        for filterItem in selected_filter_mediaType{
+            let predicate = NSPredicate(format: "kind == %@", filterItem as! CVarArg)
+            arr.filter(using: predicate)
+        }
+        
+        self.displaySearchResult = arr
     }
 }

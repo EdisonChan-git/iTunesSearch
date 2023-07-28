@@ -27,6 +27,8 @@
 		AEA177D12A72A5A00057BA0B /* HomeSearchFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA177CF2A72A5A00057BA0B /* HomeSearchFilterViewController.swift */; };
 		AEA177D22A72A5A00057BA0B /* HomeSearchFilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEA177D02A72A5A00057BA0B /* HomeSearchFilterViewController.xib */; };
 		AEA177D52A72A5CE0057BA0B /* HomeSearchFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA177D42A72A5CE0057BA0B /* HomeSearchFilterViewModel.swift */; };
+		AEA177D82A72A8CE0057BA0B /* FilterSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA177D62A72A8CE0057BA0B /* FilterSelectionTableViewCell.swift */; };
+		AEA177D92A72A8CE0057BA0B /* FilterSelectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEA177D72A72A8CE0057BA0B /* FilterSelectionTableViewCell.xib */; };
 		AECE6FC82A71212C00D85DDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECE6FC72A71212C00D85DDC /* AppDelegate.swift */; };
 		AECE6FCC2A71212C00D85DDC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECE6FCB2A71212C00D85DDC /* ViewController.swift */; };
 		AECE6FCF2A71212C00D85DDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AECE6FCD2A71212C00D85DDC /* Main.storyboard */; };
@@ -83,6 +85,8 @@
 		AEA177CF2A72A5A00057BA0B /* HomeSearchFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchFilterViewController.swift; sourceTree = "<group>"; };
 		AEA177D02A72A5A00057BA0B /* HomeSearchFilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSearchFilterViewController.xib; sourceTree = "<group>"; };
 		AEA177D42A72A5CE0057BA0B /* HomeSearchFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchFilterViewModel.swift; sourceTree = "<group>"; };
+		AEA177D62A72A8CE0057BA0B /* FilterSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		AEA177D72A72A8CE0057BA0B /* FilterSelectionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterSelectionTableViewCell.xib; sourceTree = "<group>"; };
 		AECE6FC42A71212C00D85DDC /* iTunesSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iTunesSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AECE6FC72A71212C00D85DDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AECE6FCB2A71212C00D85DDC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				AEA177B02A7246F20057BA0B /* SearchResultTableViewCell.xib */,
 				AEA177BE2A724A880057BA0B /* TapView.swift */,
 				AEA177BF2A724A880057BA0B /* TapView.xib */,
+				AEA177D62A72A8CE0057BA0B /* FilterSelectionTableViewCell.swift */,
+				AEA177D72A72A8CE0057BA0B /* FilterSelectionTableViewCell.xib */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -402,6 +408,7 @@
 			files = (
 				AEA177C82A7272BB0057BA0B /* FavouriteListViewController.xib in Resources */,
 				AEA177B22A7246F20057BA0B /* SearchResultTableViewCell.xib in Resources */,
+				AEA177D92A72A8CE0057BA0B /* FilterSelectionTableViewCell.xib in Resources */,
 				AEA177A62A7246250057BA0B /* Localizable.strings in Resources */,
 				AECE6FD42A71212F00D85DDC /* LaunchScreen.storyboard in Resources */,
 				AECE6FD12A71212F00D85DDC /* Assets.xcassets in Resources */,
@@ -488,6 +495,7 @@
 				AEA177CC2A7276E90057BA0B /* SongDetailViewController.swift in Sources */,
 				AEA177B12A7246F20057BA0B /* SearchResultTableViewCell.swift in Sources */,
 				AECE6FC82A71212C00D85DDC /* AppDelegate.swift in Sources */,
+				AEA177D82A72A8CE0057BA0B /* FilterSelectionTableViewCell.swift in Sources */,
 				AEA177A02A7122FF0057BA0B /* HomeSearchViewController.swift in Sources */,
 				AEA177AD2A7246B00057BA0B /* Utils.swift in Sources */,
 				AEA177B82A7248F60057BA0B /* iTunesSearchResult.swift in Sources */,

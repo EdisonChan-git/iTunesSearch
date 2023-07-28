@@ -59,6 +59,8 @@ class HomeSearchFilterViewController: UIViewController {
         }).disposed(by: disposeBag)
         
         filterTableView.reloadData()
+        
+        setupLocalizationString()
     }
     
     func setupLocalizationString() {

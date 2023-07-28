@@ -19,6 +19,8 @@ class FavouriteListViewController: UIViewController {
         // Do any additional setup after loading the view.
         songListView.register(UINib(nibName: "SearchResultTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchResultTableViewCell")
         
+        headerLabel.text = "Favourite Song List".localize()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

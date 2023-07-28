@@ -17,6 +17,7 @@
                 <outlet property="PublishDate" destination="E5x-rM-rqh" id="bo5-bi-EKt"/>
                 <outlet property="SongName" destination="8wW-kP-Wcs" id="FEQ-qC-wIp"/>
                 <outlet property="SubTitle" destination="f0d-zh-lV0" id="6BJ-2F-Og0"/>
+                <outlet property="backBtn" destination="NMo-YF-ITJ" id="rFv-HU-69K"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -69,12 +70,12 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NMo-YF-ITJ" userLabel="Back Button">
-                    <rect key="frame" x="16" y="69" width="16" height="16"/>
+                    <rect key="frame" x="16" y="69" width="32" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="16" id="Dse-8G-PJh"/>
-                        <constraint firstAttribute="height" constant="16" id="JIE-z3-Hqr"/>
+                        <constraint firstAttribute="width" constant="32" id="Dse-8G-PJh"/>
+                        <constraint firstAttribute="height" constant="32" id="JIE-z3-Hqr"/>
                     </constraints>
-                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="7" minY="8" maxX="9" maxY="8"/>
                     <state key="normal" image="left-arrow"/>
                     <connections>
                         <action selector="popBack:" destination="-1" eventType="touchUpInside" id="mXX-gp-N0P"/>

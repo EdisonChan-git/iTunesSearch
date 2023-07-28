@@ -11,7 +11,20 @@ import Alamofire
 
 class APIManager {
     static let shared = APIManager()
-    private let searchBaseURL = "https://itunes.apple.com/search?term=%@&offset=%ld&limit=%ld&entity=%@"
+    private let searchBaseURL = "https://itunes.apple.com/search?term=%@&offset=%ld&limit=%ld&entity=%@&lang=%@"
+    
+    func APILang() -> String {
+        let defaultLanguage = "en"
+        let appLanguage = UserDefaults.standard.string(forKey: "AppLanguage") ?? defaultLanguage
+        
+        if appLanguage == "zh-HK" {
+            return "zh_hk"
+        }else if appLanguage == "zh-Hans" {
+            return "zh_cn"
+        }else {
+            return "en_hk"
+        }
+    }
     
     func fetchiTunesResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         if(currentSelectType == 2){
@@ -30,7 +43,7 @@ class APIManager {
     }
     
     func fetchiTunesMusicResult(searchText: String!, currentSelectType: Int, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
-        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicTrack")
+        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicTrack", APILang())
         let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
         let url = URL(string: encodedUrl!)!
         AF.request(url).validate().responseJSON { response in
@@ -58,7 +71,7 @@ class APIManager {
     
     func fetchiTunesAlbumResult(searchText: String!, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         
-        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "album")
+        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "album", APILang())
         let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
         let url = URL(string: encodedUrl!)!
         AF.request(url).validate().responseJSON { response in
@@ -86,7 +99,7 @@ class APIManager {
     
     func fetchiTunesArtistResult(searchText: String!, currentPage: Int, offset: Int, resultList: NSMutableArray?, completion: @escaping (NSMutableArray) -> Void) {
         
-        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicArtist")
+        let urlString = String(format: searchBaseURL, searchText, currentPage, offset, "musicArtist", APILang())
         let encodedUrl = urlString.addingPercentEncoding(withAllowedCharacters:.urlFragmentAllowed)
         let url = URL(string: encodedUrl!)!
         AF.request(url).validate().responseJSON { response in

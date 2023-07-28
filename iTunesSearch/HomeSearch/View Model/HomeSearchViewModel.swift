@@ -160,8 +160,10 @@ class HomeSearchViewModel{
             self.displaySearchResult = NSMutableArray(array: commonResults)
         }else if(selected_filter_country.count > 0){
             self.displaySearchResult = arr_passCountryFilter
-        }else{
+        }else if(selected_filter_mediaType.count > 0){
             self.displaySearchResult = arr_passMediaTypeFilter
+        }else{
+            self.displaySearchResult = searchResult
         }
     }
 }

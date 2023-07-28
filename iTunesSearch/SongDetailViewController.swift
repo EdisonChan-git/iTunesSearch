@@ -10,6 +10,7 @@ import WebKit
 import SDWebImage
 
 class SongDetailViewController: UIViewController {
+    @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var AddOrRemoveBtn: UIButton!
     @IBOutlet weak var CoverImage: UIImageView!
     @IBOutlet weak var SongName: UILabel!
@@ -24,6 +25,9 @@ class SongDetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         assignData()
+        
+        backBtn.backgroundColor = .white
+        backBtn.layer.cornerRadius = 16
     }
 
     @IBAction func popBack(_ sender: Any) {

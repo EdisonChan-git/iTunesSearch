@@ -64,9 +64,6 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="vEJ-iJ-Z5a"/>
-                            </connections>
                         </searchBar>
                         <stackView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mjk-Xs-mgc">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="48"/>

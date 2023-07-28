@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class HomeSearchViewController: UIViewController {
     @IBOutlet weak var headerLabel: UILabel!
@@ -18,11 +20,10 @@ class HomeSearchViewController: UIViewController {
     @IBOutlet weak var tapCollectionView: UICollectionView!
     
     let viewModel = HomeSearchViewModel()
-    var timer : Timer?
     var searchText : String = ""
     var tapArray = ["Song".localize(),"Album".localize(),"Artist".localize()]
     var currentSearchType = 0 // 0 = Song, 1 = Alubm, 2 = Artist
-    
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +34,17 @@ class HomeSearchViewController: UIViewController {
         
         //Register Notification
         NotificationCenter.default.addObserver(self, selector: #selector(languageDidChange), name: Notification.Name("AppLanguageDidChange"), object: nil)
+        
+        searchBar.rx.text
+            .orEmpty
+            .debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] text in
+                // Handle text changes
+                self?.searchText = text
+                self?.search()
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -201,18 +213,6 @@ extension HomeSearchViewController: UICollectionViewDelegateFlowLayout {
         return 0
     }
     
-}
-
-extension HomeSearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //Timer is used to prevent too many API calls from being fired while typing.
-        
-        self.searchText = searchText
-        if(timer != nil){
-            timer?.invalidate()
-        }
-        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(HomeSearchViewController.search), userInfo: nil, repeats: false)
-    }
 }
 
 extension HomeSearchViewController: FilterSelectionDelegate {

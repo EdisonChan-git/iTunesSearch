@@ -84,11 +84,14 @@ class APIManager {
                         completion(newResultList)
                     }else{
                         print("error occur!")
+                        completion(NSMutableArray())
                     }
                     
                 }
             case .failure(let error):
                 print(error)
+                Utils.shared.showAlert(title: "Error", message: error.localizedDescription)
+                completion(NSMutableArray())
             }
         }
     }
@@ -121,11 +124,14 @@ class APIManager {
                         completion(newResultList)
                     }else{
                         print("error occur!")
+                        completion(NSMutableArray())
                     }
                     
                 }
             case .failure(let error):
                 print(error)
+                Utils.shared.showAlert(title: "Error", message: error.localizedDescription)
+                completion(NSMutableArray())
             }
         }
     }
@@ -158,11 +164,14 @@ class APIManager {
                         completion(newResultList)
                     }else{
                         print("error occur!")
+                        completion(NSMutableArray())
                     }
                     
                 }
             case .failure(let error):
                 print(error)
+                Utils.shared.showAlert(title: "Error", message: error.localizedDescription)
+                completion(NSMutableArray())
             }
         }
     }

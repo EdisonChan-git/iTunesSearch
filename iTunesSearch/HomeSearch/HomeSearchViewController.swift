@@ -38,6 +38,7 @@ class HomeSearchViewController: UIViewController {
         searchBar.rx.text
             .orEmpty
             .debounce(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance)
+            .startWith("")
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] text in
                 // Handle text changes
@@ -221,10 +222,12 @@ extension HomeSearchViewController: UICollectionViewDelegateFlowLayout {
 extension HomeSearchViewController: FilterSelectionDelegate {
     func didSelectFilters(_ Countryfilters: NSMutableArray,_ MediaTypefilter: NSMutableArray) {
         // Handle the selected filters from selection page
-        viewModel.applyingFilter = true
-        viewModel.selected_filter_country = Countryfilters
-        viewModel.selected_filter_mediaType = MediaTypefilter
-        viewModel.performFilterOperation()
-        searchResultTableView.reloadData()
+        if(Countryfilters.count > 0 || MediaTypefilter.count > 0){
+            viewModel.applyingFilter = true
+            viewModel.selected_filter_country = Countryfilters
+            viewModel.selected_filter_mediaType = MediaTypefilter
+            viewModel.performFilterOperation()
+            searchResultTableView.reloadData()
+        }
     }
 }

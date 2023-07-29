@@ -56,7 +56,7 @@ class HomeSearchViewModel{
         
         if(searchText.count == 0){
             searchResult.removeAllObjects()
-            displaySearchResult.value.removeAllObjects()
+            displaySearchResult.accept(NSMutableArray())
         }else{
             getSearchResult()
         }

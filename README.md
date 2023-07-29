@@ -2,6 +2,9 @@
 
 A Simple iTunes Search App that using iTunes Search API
 
+![](https://github.com/EdisonChan-git/iTunesSearch/blob/main/app-preview-1.gif)
+![](https://github.com/EdisonChan-git/iTunesSearch/blob/main/app-preview-2.gif)
+
 The app includes four main functions:
 1. Search: search for songs, albums, and artists, and displays the results in a table view.
 2. Filter: filter the search results by country and media type.

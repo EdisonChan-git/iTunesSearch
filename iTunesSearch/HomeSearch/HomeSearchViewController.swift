@@ -139,7 +139,7 @@ extension HomeSearchViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == viewModel.displaySearchResult.value.count - 1 { // last 1 cell
-            if !viewModel.noMoreResult || !viewModel.applyingFilter { // check if more items to fetch
+            if !viewModel.noMoreResult && !viewModel.applyingFilter { // check if more items to fetch
                 viewModel.getNext20SearchResult()
             }
         }
